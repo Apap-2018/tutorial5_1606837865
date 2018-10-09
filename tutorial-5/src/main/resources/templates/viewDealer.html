@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>View Dealer</title>
+		<object th:include = "fragments/fragment :: css" th:remove = "tag"></object>
+		<object th:include = "fragments/fragment :: js" th:remove = "tag"></object>
+	</head>
+	<body>
+		<nav th:replace = "fragments/fragment :: navbar"></nav>
+		
+		<h3 th:text="'Alamat : ' + ${deal.alamat}"></h3>
+		<h3 th:text="'No. Telp : ' + ${deal.noTelp}"></h3>
+		<a th:href="@{'/dealer/update/' + ${dealId}}" >Update Dealer</a><br><br>
+		
+		<form th:action="@{/dealer/delete}">
+			<input type = "hidden" name = "dealerId" th:value = "${deal.id}">
+			<button type = "submit"> Hapus Dealer</button>
+		</form>
+			
+		<form th:action = "@{/car/delete}" th:object = "${deal}" method = "POST">
+			<table>
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Brand</th>
+						<th>Type</th>
+						<th>Price</th>
+						<th>Amount</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="car,iterationStatus : *{listCar}">
+						<td th:text="${iterationStatus.count}"></td><br>
+						<td th:text="${car.brand}"></td><br>
+						<td th:text="${car.type}"></td><br>
+						<td th:text="${car.price} >= 1000000000 ? 'Diatas 1M' : 'Dibawah 1M'"></td><br>
+						<td th:text="${car.amount}"></td><br>
+						<td>
+							<input type = "checkbox" th:field = "*{listCar}" th:value="${car.id}">
+							<label th:for = "${#ids.prev('listCar')}"> Hapus</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type = "submit"> Hapus yang dipilih</button>
+		</form>
+		<br>
+		<form th:action="@{/car/add/} + ${deal.id}">
+			<button value = "submit"> Tambah Mobil</button>
+		</form>
+	</body>
+</html>
+
+<!-- <div th:each="car,iterationStatus : *{listCar}">
+				<td th:text="${iterationStatus.count}"></td><br>
+				<td th:text="'brand : ' + ${car.brand}"></td><br>
+				<td th:text="'type : ' + ${car.type}"></td><br>
+				<td th:if = "${car.price} >= 1000000000">Diatas 1M</td><br>
+				<td th:unless = "${car.price} >= 1000000000">Dibawah 1M</td><br>
+				<td th:text="'amount : ' + ${car.amount}"></td><br>
+			</div> -->
