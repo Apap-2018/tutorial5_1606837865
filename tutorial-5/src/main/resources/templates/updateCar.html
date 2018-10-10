@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Update</title>
+	<title th:replace="fragments/fragment :: headerFragment('Update Car')"></title>
 	<object th:include = "fragments/fragment :: css" th:remove = "tag"></object>
 	<object th:include = "fragments/fragment :: js" th:remove = "tag"></object>
 </head>

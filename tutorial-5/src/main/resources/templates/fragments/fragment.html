@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th = "http://www.thymeleaf.org"> 
 	<head>
-		<title>Home</title>
+		<title th:fragment="headerFragment(title)" th:text="${title}">Home</title>
 		
 		<head th:fragment="css">
 			<link rel = "stylesheet" th:href = "@{/css/bootstrap.min.css}">
@@ -22,7 +22,6 @@
 						<a class = "nav-link" th:href = "@{/}">Home</a>
 					</li>
 				</ul>
-			
 			</div>
 		</nav>
 	
